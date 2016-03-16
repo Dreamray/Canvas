@@ -48,7 +48,7 @@
     // 添加粒子
     // x，y为粒子坐标，xa, ya为粒子xy轴加速度，max为连线的最大距离
     var dots = [];
-    for(var i=0;i<300;i++){
+    for(var i=0;i<100;i++){
         var x = Math.random()*canvas.width;
         var y = Math.random()*canvas.height;
         var xa = Math.random() * 2 - 1;
@@ -59,7 +59,7 @@
             y: y,
             xa: xa,
             ya: ya,
-            max: 6000
+            max: 20000
         })
     }
 
@@ -77,9 +77,9 @@
 
         dots.forEach(function(dot){
 
-            // 粒子位移
-            dot.x += dot.xa;
-            dot.y += dot.ya;
+            // 粒子位移 , 最后一个数越大速度越慢
+            dot.x += dot.xa / 2;
+            dot.y += dot.ya / 2;
 
             // 遇到边界将加速度反向
             dot.xa *= (dot.x > canvas.width || dot.x < 0)? -1 : 1;
@@ -106,10 +106,10 @@
                 // 如果两个粒子之间的距离小于粒子对象的max值，则在两个粒子间画线
                 if(dis < d2.max){
 
-                    // 如果是鼠标，则让粒子向鼠标的位置移动
+                    // 如果是鼠标，则让粒子向鼠标的位置移动 , 最后的数越大跟随鼠标越多越快
                     if (d2 === warea && dis > (d2.max / 2)) {
-                        dot.x -= xc * 0.03;
-                        dot.y -= yc * 0.03;
+                        dot.x -= xc * 0.01;
+                        dot.y -= yc * 0.01;
                     }
 
                     // 计算距离比
